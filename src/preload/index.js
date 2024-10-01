@@ -4,9 +4,12 @@ import { electronAPI } from '@electron-toolkit/preload'
 const showOpenDialog = () => {
   ipcRenderer.send('openFile')
 }
+ipcRenderer.on('eventFromMain-message', function (evt, message) {
+  console.log(message); // Returns: {'SAVED': 'File Saved'}
+});
 
 // Custom APIs for renderer
-const api = { showOpenDialog }
+const api = { showOpenDialog, data: (e) => console.log(e) }
 
 if (process.contextIsolated) {
   try {

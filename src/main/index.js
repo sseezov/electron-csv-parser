@@ -3,8 +3,6 @@ import { join } from 'path'
 import fs from 'fs'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
-import assert from 'node:assert';
-import { parse } from 'csv-parse/sync';
 
 function createWindow() {
   // Create the browser window.
@@ -24,13 +22,16 @@ function createWindow() {
     mainWindow.show()
   })
 
-  ipcMain.on('openFile', async () => {
+  ipcMain.on('openFile', async (event) => {
     const { filePaths } = await dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] })
     const fileDatas = filePaths.map((path) => {
-      const data = fs.readFileSync(path, { encoding: 'utf8' })
-      return data
+      const data = fs.readFileSync(path, 'utf-8');
+      const parsedData = data.split('\n').map((row) => row.split(',')).map((row) => `${row[0]} ${row[2]} ${row[3]}  ${row[4]}`).join('\n')
+      fs.writeFileSync('./result.txt', parsedData);
+      // return data
     })
-    console.log(fileDatas)
+    // var text = fs.readFileSync('foo.tx', 'utf8');
+    // console.log(fileDatas)
   })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {

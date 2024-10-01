@@ -3,7 +3,7 @@ import electronLogo from './assets/electron.svg'
 
 function App() {
   const ipcHandle = () => window.electron.ipcRenderer.send('ping')
-  console.log(window.api)
+  console.log(window.api.data())
   return (
     <>
       <img alt="logo" className="logo" src={electronLogo} />
