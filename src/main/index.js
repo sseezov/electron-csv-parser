@@ -3,6 +3,7 @@ import { join } from 'path'
 import fs from 'fs'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import { parseCsvToTxt } from './utils.js'
 
 function createWindow() {
   // Create the browser window.
@@ -26,8 +27,8 @@ function createWindow() {
     const { filePaths } = await dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] })
     const fileDatas = filePaths.map((path) => {
       const data = fs.readFileSync(path, 'utf-8');
-      const parsedData = data.split('\n').map((row) => row.split(',')).map((row) => `${row[0]} ${row[2]} ${row[3]}  ${row[4]}`).join('\n')
-      fs.writeFileSync('./result.txt', parsedData);
+      console.log(parseCsvToTxt(data));
+      // fs.writeFileSync('./result.txt', parsedData);
       // return data
     })
     // var text = fs.readFileSync('foo.tx', 'utf8');

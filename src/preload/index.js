@@ -9,7 +9,7 @@ ipcRenderer.on('eventFromMain-message', function (evt, message) {
 });
 
 // Custom APIs for renderer
-const api = { showOpenDialog, data: (e) => console.log(e) }
+const api = { showOpenDialog }
 
 if (process.contextIsolated) {
   try {
