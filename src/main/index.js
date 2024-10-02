@@ -28,7 +28,7 @@ function createWindow() {
     const fileDatas = filePaths.map((path) => {
       const data = fs.readFileSync(path, 'utf-8');
       console.log(parseCsvToTxt(data));
-      // fs.writeFileSync('./result.txt', parsedData);
+      fs.writeFileSync('./result.txt', parseCsvToTxt(data));
       // return data
     })
     // var text = fs.readFileSync('foo.tx', 'utf8');
