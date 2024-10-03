@@ -27,7 +27,6 @@ function createWindow() {
     const { filePaths } = await dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] })
     const fileDatas = filePaths.map((path) => {
       const data = fs.readFileSync(path, 'utf-8');
-      console.log(parseCsvToTxt(data));
       fs.writeFileSync('./result.txt', parseCsvToTxt(data));
       // return data
     })
