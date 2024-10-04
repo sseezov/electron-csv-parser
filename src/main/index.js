@@ -1,6 +1,6 @@
 import { app, shell, BrowserWindow, ipcMain, dialog } from 'electron'
 import { join } from 'path'
-import fs from 'fs'
+const { readFile, writeFile } = require('node:fs/promises');
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { parseCsvToTxt } from './utils.js'
@@ -25,9 +25,9 @@ function createWindow() {
 
   ipcMain.on('openFile', async (event) => {
     const { filePaths } = await dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] })
-    const fileDatas = filePaths.map((path) => {
-      const data = fs.readFileSync(path, 'utf-8');
-      fs.writeFileSync('./result.txt', parseCsvToTxt(data));
+    filePaths.forEach(async (path) => {
+      const data = await readFile(path, 'utf-8');
+      await writeFile('./result.txt', parseCsvToTxt(data));
       // return data
     })
     // var text = fs.readFileSync('foo.tx', 'utf8');
