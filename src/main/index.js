@@ -1,9 +1,14 @@
 import { app, shell, BrowserWindow, ipcMain, dialog } from 'electron'
 import { join } from 'path'
-const { readFile, writeFile } = require('node:fs/promises');
+import { readFile, writeFile } from 'node:fs/promises';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { parseCsvToTxt } from './utils.js'
+import sequelize from '../db/db.js';
+
+sequelize.authenticate()
+  .then(() => console.log('db connected'))
+  .catch((e) => console.log(e))
 
 function createWindow() {
   // Create the browser window.
