@@ -4,11 +4,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { parseCsvToTxt } from './utils.js'
-import sequelize from '../db/db.js';
-
-sequelize.authenticate()
-  .then(() => console.log('db connected'))
-  .catch((e) => console.log(e))
+import db from '../dbcontroller.js';
 
 function createWindow() {
   // Create the browser window.
@@ -23,6 +19,8 @@ function createWindow() {
       sandbox: false
     }
   })
+
+  console.log(11, db);
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()

@@ -1,6 +1,5 @@
 import Versions from './components/Versions'
 import electronLogo from './assets/electron.svg'
-import Lesson from '../../db/models/lesson.js'
 
 function App() {
   const ipcHandle = () => window.electron.ipcRenderer.send('ping')
@@ -11,7 +10,6 @@ function App() {
       <div className="text">
         Build an Electron app with <span className="react">React</span>
       </div>
-      {Lesson}
       <p className="tip">
         Please try pressing <code>F12</code> to open the devTool
       </p>
